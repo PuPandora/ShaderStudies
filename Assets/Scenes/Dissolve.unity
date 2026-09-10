@@ -153,12 +153,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DissolvePingPong
   _targetRenderer: {fileID: 0}
   _speed: 0.5
+  _noiseSpeed: 0.2
   _min: 0
   _max: 1
   _startRandomCutoff: 1
   _dissolveColor: {r: 0.5994304, g: 0.38679242, b: 2, a: 1}
   _cutoffPropertyName: _Cutoff
   _dissolveColorPropertyName: _DissolveColor
+  _noiseSpeedPropertyName: _NoiseSpeed
 --- !u!135 &19289910
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -286,12 +288,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DissolvePingPong
   _targetRenderer: {fileID: 0}
   _speed: 0.5
+  _noiseSpeed: 0.2
   _min: 0
   _max: 1
   _startRandomCutoff: 1
   _dissolveColor: {r: 2, g: 0.31132078, b: 0.31132078, a: 1}
   _cutoffPropertyName: _Cutoff
   _dissolveColorPropertyName: _DissolveColor
+  _noiseSpeedPropertyName: _NoiseSpeed
 --- !u!135 &87479362
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -937,12 +941,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DissolvePingPong
   _targetRenderer: {fileID: 0}
   _speed: 0.5
+  _noiseSpeed: 0.667
   _min: 0
   _max: 1
   _startRandomCutoff: 1
   _dissolveColor: {r: 0.36792457, g: 2, b: 0.82730484, a: 1}
   _cutoffPropertyName: _Cutoff
   _dissolveColorPropertyName: _DissolveColor
+  _noiseSpeedPropertyName: _NoiseSpeed
 --- !u!1 &1819764190
 GameObject:
   m_ObjectHideFlags: 0

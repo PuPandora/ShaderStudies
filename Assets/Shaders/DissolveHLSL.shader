@@ -4,6 +4,8 @@ Shader "ShaderStudies/DissolveHLSL"
     {
         _BaseColor("Base Color", Color) = (1, 1, 1, 1)
         _Cutoff("Cutoff", Range(0, 1)) = 0.5
+        _NoiseScale("Noise Scale", Float) = 10
+        _NoiseSpeed("Noise Speed", Float) = 0.2
     }
 
     SubShader
@@ -41,6 +43,8 @@ Shader "ShaderStudies/DissolveHLSL"
             CBUFFER_START(UnityPerMaterial)
                 float4 _BaseColor;
                 float _Cutoff;
+                float _NoiseSpeed;
+                float _NoiseScale;
             CBUFFER_END
 
             Varyings vert(Attributes IN)
@@ -50,11 +54,34 @@ Shader "ShaderStudies/DissolveHLSL"
                 OUT.uv = IN.uv;
                 return OUT;
             }
+            
+            // 좌표 하나 → 0~1 난수 하나 반환
+            float hash21(float2 p)
+            {
+                p = frac(p * float2(123.34, 456.21));
+                p += dot(p, p + 45.32);
+                return frac(p.x * p.y);
+            }
+
+            // 값 노이즈 — 격자 꼭짓점의 난수를 부드럽게 보간
+            float valueNoise(float2 uv)
+            {
+                float2 i = floor(uv);
+                float2 f = frac(uv);
+                f = f * f * (3.0 - 2.0 * f);          // 부드러운 보간 곡선
+
+                float a = hash21(i);
+                float b = hash21(i + float2(1, 0));
+                float c = hash21(i + float2(0, 1));
+                float d = hash21(i + float2(1, 1));
+
+                return lerp(lerp(a, b, f.x), lerp(c, d, f.x), f.y);
+            }
 
             half4 frag(Varyings IN) : SV_Target
             {
-                clip(IN.uv.y - _Cutoff);
-                return half4(_BaseColor);
+                clip(valueNoise(IN.uv * _NoiseScale + _Time.y * _NoiseSpeed) - _Cutoff);
+                return _BaseColor;
             }
             ENDHLSL
         }
