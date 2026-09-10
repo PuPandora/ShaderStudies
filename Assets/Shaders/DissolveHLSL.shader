@@ -6,6 +6,8 @@ Shader "ShaderStudies/DissolveHLSL"
         _Cutoff("Cutoff", Range(0, 1)) = 0.5
         _NoiseScale("Noise Scale", Float) = 10
         _NoiseSpeed("Noise Speed", Float) = 0.2
+        _Offset("Offset", Float) = 0.1
+        [HDR]_DissolveColor("Dissolve Color", Color) = (1, 1, 1, 1)
     }
 
     SubShader
@@ -42,9 +44,11 @@ Shader "ShaderStudies/DissolveHLSL"
 
             CBUFFER_START(UnityPerMaterial)
                 float4 _BaseColor;
+                float4 _DissolveColor;
                 float _Cutoff;
                 float _NoiseSpeed;
                 float _NoiseScale;
+                float _Offset;
             CBUFFER_END
 
             Varyings vert(Attributes IN)
@@ -80,8 +84,13 @@ Shader "ShaderStudies/DissolveHLSL"
 
             half4 frag(Varyings IN) : SV_Target
             {
-                clip(valueNoise(IN.uv * _NoiseScale + _Time.y * _NoiseSpeed) - _Cutoff);
-                return _BaseColor;
+                // Dissolve 효과
+                float noiseResult = valueNoise(IN.uv * _NoiseScale + _Time.y * _NoiseSpeed);
+                clip(noiseResult - _Cutoff);
+                // 띠 구하기
+                float dissolveLine = step (_Cutoff, noiseResult) - step(_Cutoff + _Offset, noiseResult);
+                
+                return _BaseColor + dissolveLine * _DissolveColor;
             }
             ENDHLSL
         }
