@@ -5,6 +5,8 @@ public class DissolvePreview : MonoBehaviour
     [Header("속성")]
     [SerializeField] private Renderer _targetRenderer;
     [SerializeField] private float _speed = 0.5f;
+    [Range(0f, 1f)]
+    [SerializeField] private float _noiseSpeed = 0.2f;
     [SerializeField] private float _min = 0f;
     [SerializeField] private float _max = 1f;
     [SerializeField] private bool _startRandomCutoff = true;
@@ -13,9 +15,11 @@ public class DissolvePreview : MonoBehaviour
     
     [Header("Property Hash ID")]
     [SerializeField] private string _cutoffPropertyName = "_Cutoff";
-    [SerializeField] private string _dissolveColorPropertyName = "_DissolveColor";
     private int _cutoffId;
+    [SerializeField] private string _dissolveColorPropertyName = "_DissolveColor";
     private int _dissolveColorId;
+    [SerializeField] private string _noiseSpeedPropertyName = "_NoiseSpeed";
+    private int _noiseSpeedId;
     
     private MaterialPropertyBlock _block;
     private float _dissolveTime;
@@ -29,8 +33,10 @@ public class DissolvePreview : MonoBehaviour
         {
             _dissolveTime = Random.Range(0f, 10f);
         }
+        
         _cutoffId = Shader.PropertyToID(_cutoffPropertyName);
         _dissolveColorId = Shader.PropertyToID(_dissolveColorPropertyName);
+        _noiseSpeedId = Shader.PropertyToID(_noiseSpeedPropertyName);
         
         _block = new MaterialPropertyBlock();
         
@@ -43,6 +49,11 @@ public class DissolvePreview : MonoBehaviour
         if (!_targetRenderer.sharedMaterial.HasProperty(_dissolveColorId))
         {
             Debug.LogError($"[Dissolve] {_dissolveColorPropertyName} 프로퍼티가 존재하지 않습니다.");
+        }
+
+        if (!_targetRenderer.sharedMaterial.HasProperty(_noiseSpeedId))
+        {
+            Debug.LogError($"[Dissolve] {_noiseSpeedPropertyName} 프로퍼티가 존재하지 않습니다.");
         }
     }
 
@@ -57,11 +68,13 @@ public class DissolvePreview : MonoBehaviour
         // Cutoff
         float value = Mathf.Lerp(_min, _max, Mathf.PingPong(_dissolveTime * _speed, 1f));
         _dissolveTime += Time.deltaTime;
-        
         _block.SetFloat(_cutoffId, value);
         
         // Color
         _block.SetColor(_dissolveColorId, _dissolveColor);
+        
+        // Noise Speed
+        _block.SetFloat(_noiseSpeedId, _noiseSpeed);
         
         _targetRenderer.SetPropertyBlock(_block);
     }
