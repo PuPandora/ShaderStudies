@@ -714,6 +714,7 @@ GameObject:
   - component: {fileID: 1006973123}
   - component: {fileID: 1006973122}
   - component: {fileID: 1006973121}
+  - component: {fileID: 1006973125}
   m_Layer: 0
   m_Name: Dissolve HLSL Sphere
   m_TagString: Untagged
@@ -808,12 +809,34 @@ Transform:
   m_GameObject: {fileID: 1006973120}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.872, y: 0.3757, z: -0.06318}
+  m_LocalPosition: {x: -3.938, y: 0.3757, z: -0.06318}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1006973125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1006973120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc7858dcf7682a64396362df9337f8a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DissolvePreview
+  _targetRenderer: {fileID: 0}
+  _speed: 1
+  _noiseSpeed: 0.5
+  _min: 0
+  _max: 1
+  _startRandomCutoff: 1
+  _dissolveColor: {r: 1.1030406, g: 0.5377358, b: 2, a: 1}
+  _cutoffPropertyName: _Cutoff
+  _dissolveColorPropertyName: _DissolveColor
+  _noiseSpeedPropertyName: _NoiseSpeed
 --- !u!1 &1639535209
 GameObject:
   m_ObjectHideFlags: 0
@@ -987,7 +1010,7 @@ MonoBehaviour:
   _min: 0
   _max: 1
   _startRandomCutoff: 0
-  _dissolveColor: {r: 1.7381209, g: 5.3403134, b: 5.2634544, a: 1}
+  _dissolveColor: {r: 1.6797811, g: 4.2761674, b: 7.129738, a: 1}
   _cutoffPropertyName: _Cutoff
   _dissolveColorPropertyName: _DissolveColor
   _noiseSpeedPropertyName: _NoiseSpeed
@@ -1192,7 +1215,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 1}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 1, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
