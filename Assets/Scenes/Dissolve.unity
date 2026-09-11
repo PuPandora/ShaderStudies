@@ -153,11 +153,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DissolvePingPong
   _targetRenderer: {fileID: 0}
   _speed: 0.5
-  _noiseSpeed: 0.2
+  _noiseSpeed: 0.6
   _min: 0
   _max: 1
-  _startRandomCutoff: 1
-  _dissolveColor: {r: 0.5994304, g: 0.38679242, b: 2, a: 1}
+  _startRandomCutoff: 0
+  _dissolveColor: {r: 1.1988606, g: 0.7735848, b: 3.9999998, a: 1}
   _cutoffPropertyName: _Cutoff
   _dissolveColorPropertyName: _DissolveColor
   _noiseSpeedPropertyName: _NoiseSpeed
@@ -288,11 +288,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DissolvePingPong
   _targetRenderer: {fileID: 0}
   _speed: 0.5
-  _noiseSpeed: 0.2
+  _noiseSpeed: 0.4
   _min: 0
   _max: 1
-  _startRandomCutoff: 1
-  _dissolveColor: {r: 2, g: 0.31132078, b: 0.31132078, a: 1}
+  _startRandomCutoff: 0
+  _dissolveColor: {r: 3.9999998, g: 0.6226415, b: 0.6226415, a: 1}
   _cutoffPropertyName: _Cutoff
   _dissolveColorPropertyName: _DissolveColor
   _noiseSpeedPropertyName: _NoiseSpeed
@@ -941,11 +941,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DissolvePingPong
   _targetRenderer: {fileID: 0}
   _speed: 0.5
-  _noiseSpeed: 0.667
+  _noiseSpeed: 0.2
   _min: 0
   _max: 1
-  _startRandomCutoff: 1
-  _dissolveColor: {r: 0.36792457, g: 2, b: 0.82730484, a: 1}
+  _startRandomCutoff: 0
+  _dissolveColor: {r: 0.7358491, g: 3.9999998, b: 1.6546096, a: 1}
   _cutoffPropertyName: _Cutoff
   _dissolveColorPropertyName: _DissolveColor
   _noiseSpeedPropertyName: _NoiseSpeed
