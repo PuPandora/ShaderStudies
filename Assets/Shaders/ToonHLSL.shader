@@ -2,8 +2,9 @@ Shader "ShaderStudies/ToonHLSL"
 {
     Properties
     {
-        [HDR]_RimColor("Rim Color", Color) = (1, 1, 1, 1)
-        _RimPower("Rim Power", Range(0.1, 8)) = 3
+        [HDR]_LitColor("Lit Color", Color) = (1, 1, 1, 1)
+        _ShadowColor("Shadow Color", Color) = (0, 0, 0, 1)
+        _ShadowThreshold("Shadow Threshold", Range(0.0, 1.0)) = 0.3
     }
 
     SubShader
@@ -30,19 +31,20 @@ Shader "ShaderStudies/ToonHLSL"
             struct Attributes
             {
                 float4 positionOS : POSITION;
-                float3 normalOS   : NORMAL;        // ← Dissolve엔 없던 것
+                float3 normalOS   : NORMAL;
             };
 
             struct Varyings
             {
                 float4 positionCS : SV_POSITION;
-                float3 normalWS   : TEXCOORD0;     // ← 새로움
-                float3 positionWS : TEXCOORD1;     // ← 새로움
+                float3 normalWS   : TEXCOORD0;
+                float3 positionWS : TEXCOORD1;
             };
 
             CBUFFER_START(UnityPerMaterial)
-                float4 _RimColor;
-                float _RimPower;
+                float4 _LitColor;
+                float4 _ShadowColor;
+                float _ShadowThreshold;
             CBUFFER_END
 
             Varyings vert(Attributes IN)
@@ -60,9 +62,11 @@ Shader "ShaderStudies/ToonHLSL"
                 float3 V = GetWorldSpaceNormalizeViewDir(IN.positionWS);
                 Light L = GetMainLight();
                 
-                float NdotL = dot(N, L.direction); 
-
-                return NdotL;
+                float NdotL = dot(N, L.direction);
+                float ToonStep = step(_ShadowThreshold, NdotL);
+                float4 Toon = lerp(_ShadowColor, _LitColor, ToonStep);
+                
+                return Toon;
             }
             ENDHLSL
         }
