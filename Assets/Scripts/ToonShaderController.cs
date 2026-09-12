@@ -1,5 +1,7 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Renderer))]
+[ExecuteAlways]
 public class ToonShaderController : MonoBehaviour
 {
     private Renderer _targetRenderer;
@@ -21,52 +23,57 @@ public class ToonShaderController : MonoBehaviour
     private int _shadowThresholdId;
 
     private MaterialPropertyBlock _block;
-    private bool _applied;
     
     private void Awake()
     {
-        _targetRenderer = GetComponent<Renderer>();
-        
-        _litColorId = Shader.PropertyToID(_litColorName);
-        _shadowColorId = Shader.PropertyToID(_shadowColorName);
-        _shadowThresholdId = Shader.PropertyToID(_shadowThresholdName);
-        _block = new MaterialPropertyBlock();
+        CacheIds();
+    }
+
+    private void OnEnable()
+    {
+        Apply();
+    }
+
+    private void OnDisable()
+    {
+        if (_targetRenderer != null)
+        {
+            _targetRenderer.SetPropertyBlock(null);
+        }
     }
 
     private void OnValidate()
     {
-        _targetRenderer ??= GetComponent<Renderer>(); 
-        _block ??= new MaterialPropertyBlock();
-        
-        _litColorId = Shader.PropertyToID(_litColorName);
-        _shadowColorId = Shader.PropertyToID(_shadowColorName);
-        _shadowThresholdId = Shader.PropertyToID(_shadowThresholdName);
-        
+        CacheIds();
         Apply();
     }
 
-    private void Update()
+    private void CacheIds()
     {
-        Apply();
+        _litColorId = Shader.PropertyToID(_litColorName);
+        _shadowColorId = Shader.PropertyToID(_shadowColorName);
+        _shadowThresholdId = Shader.PropertyToID(_shadowThresholdName);
     }
     
     private void Apply()
     {
-        if (_changeShader)
+        if (_targetRenderer == null)
         {
-            _block.SetColor(_litColorId, _litColor);
-            _block.SetColor(_shadowColorId, _shadowColor);
-            _block.SetFloat(_shadowThresholdId, _shadowThreshold);
+            _targetRenderer = GetComponent<Renderer>(); 
+        }
+        _block ??= new MaterialPropertyBlock();
         
-            _targetRenderer.SetPropertyBlock(_block);
-            
-            _applied = true;
-        }
-        else if (_applied)
+        if (!_changeShader)
         {
-            // Debug.Log($"{gameObject.name}: 셰이더 변경이 꺼져있어 재질 기본 값을 불러옵니다.");
             _targetRenderer.SetPropertyBlock(null);
-            _applied = false;
+            return;
         }
+
+        // 셰이더 수정, 적용
+        _block.SetColor(_litColorId, _litColor);
+        _block.SetColor(_shadowColorId, _shadowColor);
+        _block.SetFloat(_shadowThresholdId, _shadowThreshold);
+    
+        _targetRenderer.SetPropertyBlock(_block);
     }
 }
