@@ -2,6 +2,7 @@ Shader "ShaderStudies/RimLightHLSL"
 {
     Properties
     {
+        _BaseColor("Base Color", Color) = (0.2, 0.2, 0.2, 1)
         [HDR]_RimColor("Rim Color", Color) = (1, 1, 1, 1)
         _RimPower("Rim Power", Range(0.1, 8)) = 3
     }
@@ -40,6 +41,7 @@ Shader "ShaderStudies/RimLightHLSL"
             };
 
             CBUFFER_START(UnityPerMaterial)
+                float4 _BaseColor;
                 float4 _RimColor;
                 float _RimPower;
             CBUFFER_END
@@ -62,7 +64,7 @@ Shader "ShaderStudies/RimLightHLSL"
                 float rim = 1.0 - saturate(NdotV);
                 rim = pow(rim, _RimPower);
                 
-                return rim * _RimColor;
+                return _BaseColor + rim * _RimColor;
             }
             ENDHLSL
         }
