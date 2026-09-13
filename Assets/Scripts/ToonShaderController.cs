@@ -1,3 +1,4 @@
+using PandoraStudio.Shader;
 using UnityEngine;
 
 [RequireComponent(typeof(Renderer))]
@@ -15,20 +16,11 @@ public class ToonShaderController : MonoBehaviour
     [SerializeField] private bool _changeShader;
 
     [Header("Property")]
-    [SerializeField] private string _litColorName = "_LitColor";
-    [SerializeField] private string _shadowColorName ="_ShadowColor";
-    [SerializeField] private string _shadowThresholdName = "_ShadowThreshold";
-    private int _litColorId;
-    private int _shadowColorId;
-    private int _shadowThresholdId;
+    [SerializeField] private ShaderProperty _litColorProperty = new ("_LitColor");
+    [SerializeField] private ShaderProperty _shadowColorProperty = new ("_ShadowColor");
+    [SerializeField] private ShaderProperty _shadowThresholdProperty = new ("_ShadowThreshold");
 
     private MaterialPropertyBlock _block;
-    
-    private void Awake()
-    {
-        CacheIds();
-    }
-
     private void OnEnable()
     {
         Apply();
@@ -44,15 +36,7 @@ public class ToonShaderController : MonoBehaviour
 
     private void OnValidate()
     {
-        CacheIds();
         Apply();
-    }
-
-    private void CacheIds()
-    {
-        _litColorId = Shader.PropertyToID(_litColorName);
-        _shadowColorId = Shader.PropertyToID(_shadowColorName);
-        _shadowThresholdId = Shader.PropertyToID(_shadowThresholdName);
     }
     
     private void Apply()
@@ -70,9 +54,9 @@ public class ToonShaderController : MonoBehaviour
         }
 
         // 셰이더 수정, 적용
-        _block.SetColor(_litColorId, _litColor);
-        _block.SetColor(_shadowColorId, _shadowColor);
-        _block.SetFloat(_shadowThresholdId, _shadowThreshold);
+        _block.SetColor(_litColorProperty.ID, _litColor);
+        _block.SetColor(_shadowColorProperty.ID, _shadowColor);
+        _block.SetFloat(_shadowThresholdProperty.ID, _shadowThreshold);
     
         _targetRenderer.SetPropertyBlock(_block);
     }

@@ -1,3 +1,4 @@
+using PandoraStudio.Shader;
 using UnityEngine;
 
 public class DissolvePreview : MonoBehaviour
@@ -14,12 +15,9 @@ public class DissolvePreview : MonoBehaviour
     [SerializeField] private Color _dissolveColor = Color.white;
     
     [Header("Property Hash ID")]
-    [SerializeField] private string _cutoffPropertyName = "_Cutoff";
-    private int _cutoffId;
-    [SerializeField] private string _dissolveColorPropertyName = "_DissolveColor";
-    private int _dissolveColorId;
-    [SerializeField] private string _noiseSpeedPropertyName = "_NoiseSpeed";
-    private int _noiseSpeedId;
+    [SerializeField] private ShaderProperty _cutoffProperty = new ("_Cutoff");
+    private ShaderProperty _dissolveColorProperty = new ("_DissolveColor");
+    private ShaderProperty _noiseSpeedProperty = new ("_NoiseSpeed");
     
     private MaterialPropertyBlock _block;
     private float _dissolveTime;
@@ -34,33 +32,23 @@ public class DissolvePreview : MonoBehaviour
             _dissolveTime = Random.Range(0f, 10f);
         }
         
-        _cutoffId = Shader.PropertyToID(_cutoffPropertyName);
-        _dissolveColorId = Shader.PropertyToID(_dissolveColorPropertyName);
-        _noiseSpeedId = Shader.PropertyToID(_noiseSpeedPropertyName);
-        
         _block = new MaterialPropertyBlock();
         
         // 검사
-        if (!_targetRenderer.sharedMaterial.HasProperty(_cutoffId))
+        if (!_targetRenderer.sharedMaterial.HasProperty(_cutoffProperty.ID))
         {
-            Debug.LogError($"[Dissolve] {_cutoffPropertyName} 프로퍼티가 존재하지 않습니다.");
+            Debug.LogError($"[Dissolve] {_cutoffProperty.Name} 프로퍼티가 존재하지 않습니다.");
         }
 
-        if (!_targetRenderer.sharedMaterial.HasProperty(_dissolveColorId))
+        if (!_targetRenderer.sharedMaterial.HasProperty(_dissolveColorProperty.ID))
         {
-            Debug.LogError($"[Dissolve] {_dissolveColorPropertyName} 프로퍼티가 존재하지 않습니다.");
+            Debug.LogError($"[Dissolve] {_dissolveColorProperty.Name} 프로퍼티가 존재하지 않습니다.");
         }
 
-        if (!_targetRenderer.sharedMaterial.HasProperty(_noiseSpeedId))
+        if (!_targetRenderer.sharedMaterial.HasProperty(_noiseSpeedProperty.ID))
         {
-            Debug.LogError($"[Dissolve] {_noiseSpeedPropertyName} 프로퍼티가 존재하지 않습니다.");
+            Debug.LogError($"[Dissolve] {_noiseSpeedProperty.Name} 프로퍼티가 존재하지 않습니다.");
         }
-    }
-
-    private void OnValidate()
-    {
-        _cutoffId = Shader.PropertyToID(_cutoffPropertyName);
-        _dissolveColorId = Shader.PropertyToID(_dissolveColorPropertyName);
     }
 
     private void Update()
@@ -68,13 +56,13 @@ public class DissolvePreview : MonoBehaviour
         // Cutoff
         float value = Mathf.Lerp(_min, _max, Mathf.PingPong(_dissolveTime * _speed, 1f));
         _dissolveTime += Time.deltaTime;
-        _block.SetFloat(_cutoffId, value);
+        _block.SetFloat(_cutoffProperty.ID, value);
         
         // Color
-        _block.SetColor(_dissolveColorId, _dissolveColor);
+        _block.SetColor(_dissolveColorProperty.ID, _dissolveColor);
         
         // Noise Speed
-        _block.SetFloat(_noiseSpeedId, _noiseSpeed);
+        _block.SetFloat(_noiseSpeedProperty.ID, _noiseSpeed);
         
         _targetRenderer.SetPropertyBlock(_block);
     }

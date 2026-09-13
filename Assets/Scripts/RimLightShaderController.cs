@@ -1,4 +1,4 @@
-using System;
+using PandoraStudio.Shader;
 using UnityEngine;
 
 [RequireComponent(typeof(Renderer))]
@@ -10,25 +10,17 @@ public class RimLightShaderController : MonoBehaviour
     [Header("- 속성")]
     [SerializeField] private Color _baseColor = new Color(0.15f, 0.15f, 0.15f, 1f);
     [ColorUsage(true, true)]
-    [SerializeField] private Color _rimColor = Color.white * 2f;
+    [SerializeField] private Color _rimColor = Color.white;
     [Range(0f, 8f)]
     [SerializeField] private float _rimPower = 8.0f;
     [SerializeField] private bool _changeShader = true;
 
     [Header("Property")]
-    [SerializeField] private string _baseColorName = "_BaseColor";
-    [SerializeField] private string _rimColorName ="_RimColor";
-    [SerializeField] private string _rimPowerName = "_RimPower";
-    private int _baseColorId;
-    private int _rimColorId;
-    private int _rimPowerId;
+    private static readonly ShaderProperty BaseColorProperty = new ("_BaseColor");
+    [SerializeField] private ShaderProperty _rimColorProperty = new ("_RimColor");
+    [SerializeField] private ShaderProperty _rimPowerProperty = new ("_RimPower");
 
     private MaterialPropertyBlock _block;
-
-    private void Awake()
-    {
-        CacheIds();
-    }
     
     private void OnEnable()
     {
@@ -43,16 +35,8 @@ public class RimLightShaderController : MonoBehaviour
         }
     }
 
-    private void CacheIds()
-    {
-        _baseColorId = Shader.PropertyToID(_baseColorName);
-        _rimColorId = Shader.PropertyToID(_rimColorName);
-        _rimPowerId = Shader.PropertyToID(_rimPowerName);
-    }
-
     private void OnValidate()
     {
-        CacheIds();
         Apply();
     }
 
@@ -70,9 +54,9 @@ public class RimLightShaderController : MonoBehaviour
             return;
         }
         
-        _block.SetColor(_baseColorId, _baseColor);
-        _block.SetColor(_rimColorId, _rimColor);
-        _block.SetFloat(_rimPowerId, _rimPower);
+        _block.SetColor(BaseColorProperty.ID, _baseColor);
+        _block.SetColor(_rimColorProperty.ID, _rimColor);
+        _block.SetFloat(_rimPowerProperty.ID, _rimPower);
         
         _targetRenderer.SetPropertyBlock(_block);
     }
