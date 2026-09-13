@@ -244,8 +244,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5c0531e067cfd0458c1c75a058bf789, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ToonShaderController
-  _litColor: {r: 0.42749983, g: 0.3254717, b: 1, a: 1}
-  _shadowColor: {r: 0.2924528, g: 0.051041294, b: 0.22200343, a: 1}
+  _litColor: {r: 0.3644822, g: 0.20558919, b: 0.7924528, a: 1}
+  _shadowColor: {r: 0.054901954, g: 0.056931786, b: 0.36862746, a: 1}
   _shadowThreshold: 0.3
   _changeShader: 1
   _litColorName: _LitColor
@@ -552,8 +552,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5c0531e067cfd0458c1c75a058bf789, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ToonShaderController
-  _litColor: {r: 0.42749983, g: 0.3254717, b: 1, a: 1}
-  _shadowColor: {r: 0.2924528, g: 0.051041294, b: 0.22200343, a: 1}
+  _litColor: {r: 0.7971698, g: 0.8542604, b: 1, a: 1}
+  _shadowColor: {r: 0.21590424, g: 0.20425418, b: 0.3207547, a: 1}
   _shadowThreshold: 0.3
   _changeShader: 1
   _litColorName: _LitColor
@@ -743,8 +743,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5c0531e067cfd0458c1c75a058bf789, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ToonShaderController
-  _litColor: {r: 0.42749983, g: 0.3254717, b: 1, a: 1}
-  _shadowColor: {r: 0.2924528, g: 0.051041294, b: 0.22200343, a: 1}
+  _litColor: {r: 1, g: 0.65381306, b: 0.32549024, a: 1}
+  _shadowColor: {r: 0.2830189, g: 0.13786066, b: 0.11881453, a: 1}
   _shadowThreshold: 0.3
   _changeShader: 1
   _litColorName: _LitColor
