@@ -424,9 +424,10 @@ MonoBehaviour:
   _rimColor: {r: 2.6701565, g: 1.2469126, b: 1.2469126, a: 2}
   _rimPower: 8
   _changeShader: 1
-  _baseColorName: _BaseColor
-  _rimColorName: _RimColor
-  _rimPowerName: _RimPower
+  _rimColorProperty:
+    _name: _RimColor
+  _rimPowerProperty:
+    _name: _RimPower
 --- !u!1 &292880799
 GameObject:
   m_ObjectHideFlags: 0
@@ -558,9 +559,10 @@ MonoBehaviour:
   _rimColor: {r: 2.6701565, g: 1.2469126, b: 1.2469126, a: 2}
   _rimPower: 8
   _changeShader: 1
-  _baseColorName: _BaseColor
-  _rimColorName: _RimColor
-  _rimPowerName: _RimPower
+  _rimColorProperty:
+    _name: _RimColor
+  _rimPowerProperty:
+    _name: _RimPower
 --- !u!1 &402595753
 GameObject:
   m_ObjectHideFlags: 0
@@ -574,12 +576,12 @@ GameObject:
   - component: {fileID: 402595755}
   - component: {fileID: 402595754}
   m_Layer: 0
-  m_Name: Main Camera (1)
+  m_Name: HLSL Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &402595754
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -829,9 +831,10 @@ MonoBehaviour:
   _rimColor: {r: 1.4317994, g: 1.0316682, b: 2.9960778, a: 2}
   _rimPower: 8
   _changeShader: 1
-  _baseColorName: _BaseColor
-  _rimColorName: _RimColor
-  _rimPowerName: _RimPower
+  _rimColorProperty:
+    _name: _RimColor
+  _rimPowerProperty:
+    _name: _RimPower
 --- !u!1 &1341454382
 GameObject:
   m_ObjectHideFlags: 0
@@ -961,9 +964,10 @@ MonoBehaviour:
   _rimColor: {r: 2.6701565, g: 1.2469126, b: 1.2469126, a: 2}
   _rimPower: 8
   _changeShader: 1
-  _baseColorName: _BaseColor
-  _rimColorName: _RimColor
-  _rimPowerName: _RimPower
+  _rimColorProperty:
+    _name: _RimColor
+  _rimPowerProperty:
+    _name: _RimPower
 --- !u!1 &1379709408
 GameObject:
   m_ObjectHideFlags: 0
@@ -1093,9 +1097,67 @@ MonoBehaviour:
   _rimColor: {r: 1.4317994, g: 1.0316682, b: 2.9960778, a: 2}
   _rimPower: 8
   _changeShader: 1
-  _baseColorName: _BaseColor
-  _rimColorName: _RimColor
-  _rimPowerName: _RimPower
+  _rimColorProperty:
+    _name: _RimColor
+  _rimPowerProperty:
+    _name: _RimPower
+--- !u!1001 &1594332500
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2690961835320572197, guid: 044b0fb23d2b68b40907aebfff4c045c, type: 3}
+      propertyPath: m_Name
+      value: Both Camera
+      objectReference: {fileID: 0}
+    - target: {fileID: 4822862408485055004, guid: 044b0fb23d2b68b40907aebfff4c045c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4822862408485055004, guid: 044b0fb23d2b68b40907aebfff4c045c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4822862408485055004, guid: 044b0fb23d2b68b40907aebfff4c045c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4822862408485055004, guid: 044b0fb23d2b68b40907aebfff4c045c, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.99711895
+      objectReference: {fileID: 0}
+    - target: {fileID: 4822862408485055004, guid: 044b0fb23d2b68b40907aebfff4c045c, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.06317112
+      objectReference: {fileID: 0}
+    - target: {fileID: 4822862408485055004, guid: 044b0fb23d2b68b40907aebfff4c045c, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.04183206
+      objectReference: {fileID: 0}
+    - target: {fileID: 4822862408485055004, guid: 044b0fb23d2b68b40907aebfff4c045c, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.003652024
+      objectReference: {fileID: 0}
+    - target: {fileID: 4822862408485055004, guid: 044b0fb23d2b68b40907aebfff4c045c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4822862408485055004, guid: 044b0fb23d2b68b40907aebfff4c045c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4822862408485055004, guid: 044b0fb23d2b68b40907aebfff4c045c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 044b0fb23d2b68b40907aebfff4c045c, type: 3}
 --- !u!1 &2028261002
 GameObject:
   m_ObjectHideFlags: 0
@@ -1225,9 +1287,10 @@ MonoBehaviour:
   _rimColor: {r: 1.4317994, g: 1.0316682, b: 2.9960778, a: 2}
   _rimPower: 8
   _changeShader: 1
-  _baseColorName: _BaseColor
-  _rimColorName: _RimColor
-  _rimPowerName: _RimPower
+  _rimColorProperty:
+    _name: _RimColor
+  _rimPowerProperty:
+    _name: _RimPower
 --- !u!1001 &7732794398823544106
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1238,7 +1301,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2690961835320572197, guid: 044b0fb23d2b68b40907aebfff4c045c, type: 3}
       propertyPath: m_Name
-      value: Main Camera
+      value: Shader Graph Camera
+      objectReference: {fileID: 0}
+    - target: {fileID: 2690961835320572197, guid: 044b0fb23d2b68b40907aebfff4c045c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4822862408485055004, guid: 044b0fb23d2b68b40907aebfff4c045c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1292,6 +1359,7 @@ SceneRoots:
   - {fileID: 138587866}
   - {fileID: 7732794398823544106}
   - {fileID: 402595757}
+  - {fileID: 1594332500}
   - {fileID: 203844589}
   - {fileID: 1379709412}
   - {fileID: 2028261006}
