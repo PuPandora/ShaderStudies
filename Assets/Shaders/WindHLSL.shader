@@ -42,7 +42,7 @@ Shader "ShaderStudies/WindHLSL"
             Varyings vert(Attributes IN)
             {
                 Varyings OUT;
-                IN.positionOS.x += sin(_Time.y);
+                IN.positionOS.y += sin(_Time.y + IN.positionOS.x);
                 OUT.positionCS = TransformObjectToHClip(IN.positionOS.xyz);
                 return OUT;
             }
