@@ -5,6 +5,7 @@ Shader "ShaderStudies/ToonHLSL"
         [HDR]_LitColor("Lit Color", Color) = (1, 1, 1, 1)
         _ShadowColor("Shadow Color", Color) = (0, 0, 0, 1)
         _ShadowThreshold("Shadow Threshold", Range(0.0, 1.0)) = 0.3
+        _Smoothness("Smoothness", Range(0.001, 1)) = 0.001
     }
 
     SubShader
@@ -45,6 +46,7 @@ Shader "ShaderStudies/ToonHLSL"
                 float4 _LitColor;
                 float4 _ShadowColor;
                 float _ShadowThreshold;
+                float _Smoothness;
             CBUFFER_END
 
             Varyings vert(Attributes IN)
@@ -63,7 +65,10 @@ Shader "ShaderStudies/ToonHLSL"
                 Light L = GetMainLight();
                 
                 float NdotL = dot(N, L.direction);
-                float ToonStep = step(_ShadowThreshold, NdotL);
+                float SmoothHalf = _Smoothness * 0.5f;
+                float ToonStep = smoothstep(_ShadowThreshold - SmoothHalf,
+                                            _ShadowThreshold + SmoothHalf,
+                                            NdotL);
                 float4 Toon = lerp(_ShadowColor, _LitColor, ToonStep);
                 
                 return Toon;
