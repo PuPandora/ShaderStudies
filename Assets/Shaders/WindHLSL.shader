@@ -5,6 +5,7 @@ Shader "ShaderStudies/WindHLSL"
         _BaseColor("Base Color", Color) = (1, 1, 1, 1)
         _MaskPower("Mask Power", Range(0, 8)) = 1
         _Speed("Speed", Range(0, 10)) = 1
+        [Toggle(_DEBUG_MASK)]_DebugMask("Debug Mask", float) = 0
     }
 
     SubShader
@@ -24,6 +25,7 @@ Shader "ShaderStudies/WindHLSL"
             HLSLPROGRAM
             #pragma vertex vert
             #pragma fragment frag
+            #pragma shader_feature_local _DEBUG_MASK
 
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
 
@@ -58,8 +60,10 @@ Shader "ShaderStudies/WindHLSL"
 
             half4 frag(Varyings IN) : SV_Target
             {
+                #ifdef _DEBUG_MASK
                 // 디버그 범위 확인용 그리기
                 return float4(IN.mask, IN.mask, IN.mask, 1);
+                #endif
                 return _BaseColor;
             }
             ENDHLSL
