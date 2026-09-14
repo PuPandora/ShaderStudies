@@ -11,7 +11,8 @@ Material:
   m_Shader: {fileID: 4800000, guid: e960a7457434a234898e905de78d9a32, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
+  m_ValidKeywords:
+  - _RIMLIGHT_ON
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -105,8 +106,9 @@ Material:
     - _Parallax: 0.005
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _RimPower: 3
-    - _ShadowThreshold: 0.229
+    - _RimLightOn: 1
+    - _RimPower: 8
+    - _ShadowThreshold: 0.561
     - _Smoothness: 0.001
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
@@ -121,7 +123,7 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _LitColor: {r: 0.19750184, g: 0.054111768, b: 0.6037736, a: 1}
-    - _RimColor: {r: 1, g: 1, b: 1, a: 1}
+    - _RimColor: {r: 0.999382, g: 0.32075477, b: 4, a: 1}
     - _ShadowColor: {r: 0.3301887, g: 0, b: 0.20734808, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
