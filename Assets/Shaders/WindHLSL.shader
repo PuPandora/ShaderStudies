@@ -63,8 +63,11 @@ Shader "ShaderStudies/WindHLSL"
                 OUT.mask = swayMask;
                 
                 // 버텍스 움직이기. 깃발 흔들림
+                float wave2SpeedScale = 1.3;
+                float wave2Weight = 0.4;
                 float wave = sin(_Time.y * _Speed + IN.positionOS.x);
-                IN.positionOS.y += wave * _Amplitude * swayMask;
+                float wave2 = sin(_Time.y * _Speed * wave2SpeedScale + IN.positionOS.z);
+                IN.positionOS.y += (wave + wave2 * wave2Weight) * _Amplitude * swayMask;
                 OUT.positionCS = TransformObjectToHClip(IN.positionOS.xyz);
                 return OUT;
             }
