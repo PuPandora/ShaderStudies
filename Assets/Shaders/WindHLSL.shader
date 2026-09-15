@@ -5,7 +5,9 @@ Shader "ShaderStudies/WindHLSL"
         _BaseColor("Base Color", Color) = (1, 1, 1, 1)
         _MaskPower("Mask Power", Range(0, 8)) = 1
         _Speed("Speed", Range(0, 10)) = 1
+        _Amplitude("Amplitude", Range(0, 3)) = 1
         [Toggle(_DEBUG_MASK)]_DebugMask("Debug Mask", float) = 0
+        _ExtentX("Extents X", Float) = 0.5
     }
 
     SubShader
@@ -44,21 +46,25 @@ Shader "ShaderStudies/WindHLSL"
                 float4 _BaseColor;
                 float _MaskPower;
                 float _Speed;
+                // 진폭
+                float _Amplitude;
+                // X 길이 절반
+                float _ExtentX;
             CBUFFER_END
             
             Varyings vert(Attributes IN)
             {
                 Varyings OUT;
                 
+                float extentX = max(_ExtentX, 0.0001);
                 // SwayMask 깃발 흔들림 정도 + 디버그 표시
-                float swayMask = (IN.positionOS.x + 5) / 10; // -5 ~ +5 Plane 고유 position.x 크기
-                swayMask = saturate(swayMask);
-                swayMask = pow(swayMask, _MaskPower);
+                float swayMask = (IN.positionOS.x + extentX) / (extentX * 2);
+                swayMask = pow(saturate(swayMask), _MaskPower);
                 OUT.mask = swayMask;
                 
-                // 그렇다면 y축을 기준으로 흔든다. x축 위치 기준으로 다른 시작 값을 가진다.
-                // + SwayMask 기준으로 검은색 부분은 덜 흔들리게. 0은 안 흔들리게 한다.
-                IN.positionOS.y += sin(_Time.y * _Speed + IN.positionOS.x) * swayMask;
+                // 버텍스 움직이기. 깃발 흔들림
+                float wave = sin(_Time.y * _Speed + IN.positionOS.x);
+                IN.positionOS.y += wave * _Amplitude * swayMask;
                 OUT.positionCS = TransformObjectToHClip(IN.positionOS.xyz);
                 return OUT;
             }
