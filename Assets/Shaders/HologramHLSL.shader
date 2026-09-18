@@ -5,6 +5,8 @@ Shader "ShaderStudies/HologramHLSL"
         _BaseColor("Base Color", Color) = (0.2, 0.2, 0.2, 1)
         [HDR]_RimColor("Rim Color", Color) = (1, 1, 1, 1)
         _RimPower("Rim Power", Range(0.1, 8)) = 3
+        _LineCount("Line Count", Range(1, 16)) = 8
+        _ScrollSpeed("Scroll Speed", Range(-5, 5)) = -1
     }
 
     SubShader
@@ -41,12 +43,15 @@ Shader "ShaderStudies/HologramHLSL"
                 float4 positionCS : SV_POSITION;
                 float3 normalWS   : TEXCOORD0;
                 float3 positionWS : TEXCOORD1;
+                float3 positionOS : TEXCOORD2;
             };
 
             CBUFFER_START(UnityPerMaterial)
                 float4 _BaseColor;
                 float4 _RimColor;
                 float _RimPower;
+                float _LineCount;
+                float _ScrollSpeed;
             CBUFFER_END
 
             Varyings vert(Attributes IN)
@@ -54,15 +59,18 @@ Shader "ShaderStudies/HologramHLSL"
                 Varyings OUT;
                 OUT.positionCS = TransformObjectToHClip(IN.positionOS.xyz);
                 OUT.positionWS = TransformObjectToWorld(IN.positionOS.xyz);
+                OUT.positionOS = IN.positionOS.xyz;
                 OUT.normalWS   = TransformObjectToWorldNormal(IN.normalOS);
                 return OUT;
             }
 
             half4 frag(Varyings IN) : SV_Target
             {
-                float4 purpleColor = float4(0.7, 0.3, 0.7, 0.5);
+                //float4 purpleColor = float4(0.7, 0.3, 0.7, 0.5);
+                float scanLine = frac(IN.positionOS.y * _LineCount + _Time.y * _ScrollSpeed);
+                float4 hologram = float4(scanLine, scanLine, scanLine, 0.5);
                 
-                return purpleColor;
+                return hologram;
             }
             ENDHLSL
         }
