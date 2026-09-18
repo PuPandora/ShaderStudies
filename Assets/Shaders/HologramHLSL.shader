@@ -12,14 +12,17 @@ Shader "ShaderStudies/HologramHLSL"
         Tags
         {
             "RenderPipeline" = "UniversalPipeline"
-            "RenderType" = "Opaque"
-            "Queue" = "Geometry"
+            "RenderType" = "Transparent"
+            "Queue" = "Transparent"
         }
 
         Pass
         {
             Name "Unlit"
             Tags { "LightMode" = "UniversalForward" }
+            Blend SrcAlpha OneMinusSrcAlpha
+            Cull Off
+            ZWrite Off
 
             HLSLPROGRAM
             #pragma vertex vert
@@ -57,9 +60,9 @@ Shader "ShaderStudies/HologramHLSL"
 
             half4 frag(Varyings IN) : SV_Target
             {
-                float4 redColor = float4(0.7, 0.3, 0.7, 0.5);
+                float4 purpleColor = float4(0.7, 0.3, 0.7, 0.5);
                 
-                return redColor;
+                return purpleColor;
             }
             ENDHLSL
         }
